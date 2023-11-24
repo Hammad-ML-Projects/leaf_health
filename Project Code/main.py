@@ -176,12 +176,12 @@ if rebuild_model:
     print('Starting data split ...')
     X = pd.DataFrame(leaf_pca) # dataframe
     y = pd.Series(np.array(target_array))
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .3, random_state = 1234123) # original data split
+    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .3, random_state = 1234123) # original data split
 
     # below is for splitting data into train, validate, test
-    # testing_ratio = 0.15
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = testing_ratio, random_state = 1234123, stratify = y) # testing data is 15%
-    # X_val, X_test, y_val, y_test = train_test_split(X, y, test_size = testing_ratio / (1 - testing_ratio), random_state = 1234123, stratify = y) # validation data is 15% [x% of 85%]
+    testing_ratio = 0.15
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = testing_ratio, random_state = 1234123, stratify = y) # testing data is 15%
+    X_val, X_test, y_val, y_test = train_test_split(X, y, test_size = testing_ratio / (1 - testing_ratio), random_state = 1234123, stratify = y) # validation data is 15% [x% of 85%]
 
     print('Data split successfully!')
 
@@ -201,10 +201,10 @@ if rebuild_model:
     # score model
     print('Testing model accuracy ...')
     # generate predictions
-    y_pred = svm.predict(X_test)
+    y_pred = svm.predict(X_val)
     print('The predicted data is:', y_pred)
-    print('The actual data is:', np.array(y_test))
-    print('The model (', kernel_type, 'SVM) is', str(round(accuracy_score(y_pred, y_test)*100, 2)), '% accurate')
+    print('The actual data is:', np.array(y_val))
+    print('The model (', kernel_type, 'SVM) is', str(round(accuracy_score(y_pred, y_val)*100, 2)), '% accurate')
 
     # ROC Curve + AUC
     # predict probabilities for X_test using predict_proba
@@ -263,6 +263,7 @@ else:
         print('Pickle is loaded successfully!')
     filehandler.close()
 
+    """ let's keep this for later. Let's build a few models first - the more time consuming portion
     # load image and run it through the model (this is for test - we would really use the data split here)
     image_name = '0001_0019.JPG'
     image_name_category = CATEGORIES_DICTIONARY.get(image_name[:4])
@@ -270,8 +271,9 @@ else:
     image = cv2.imread(test_filename)
 
     # display loaded image
-    plt.imshow(image)
-    plt.show()
+    if debug:
+        plt.imshow(image)
+        plt.show()
 
     # get image features
     image_features = create_features(image)
@@ -280,6 +282,6 @@ else:
     probability = model.predict_proba(image_features)
     for index, (key, value) in enumerate(CATEGORIES_DICTIONARY.items()):
         print(f'{value} = {probability[0][index]*100}%')
-    print('The predicted image is:', CATEGORIES_DICTIONARY[model.predict(image_features)[0]])
+    print('The predicted image is:', CATEGORIES_DICTIONARY[model.predict(image_features)[0]]) """
 
 # above uses SVM; https://rpubs.com/Sharon_1684/454441
