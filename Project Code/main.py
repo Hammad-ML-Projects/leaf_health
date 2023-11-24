@@ -257,7 +257,7 @@ else:
 
     # run model
     probability = model.predict_proba(image_features)
-    for index, value in enumerate(CATEGORIES_DICTIONARY):
+    for index, (key, value) in enumerate(CATEGORIES_DICTIONARY.items()):
         print(f'{value} = {probability[0][index]*100}%')
     print('The predicted image is:', CATEGORIES_DICTIONARY[model.predict(image_features)[0]])
 
