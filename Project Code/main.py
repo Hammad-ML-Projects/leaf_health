@@ -81,15 +81,24 @@ else:
 model_kernel_type = input('\nWhich SVM model type would you like to run? (linear/l, poly/p, rbf/r, sigmoid/s): ')
 if model_kernel_type.upper() == 'S' or model_kernel_type.upper() == 'SIGMOID':
     model_kernel_type = 'sigmoid'
+    if debug:
+        print(model_kernel_type, 'SVM model selected.')
 elif model_kernel_type.upper() == 'R' or model_kernel_type.upper() == 'RBF':
     model_kernel_type = 'rbf'
+    if debug:
+        print(model_kernel_type, 'SVM model selected.')
 elif model_kernel_type.upper() == 'P' or model_kernel_type.upper() == 'POLY':
     model_kernel_type = 'poly'
+    if debug:
+        print(model_kernel_type, 'SVM model selected.')
+elif model_kernel_type.upper() == 'L' or model_kernel_type.upper() == 'LINEAR':
+    model_kernel_type = 'linear'
+    if debug:
+        print(model_kernel_type, 'SVM model selected.')
 else:
     model_kernel_type = 'linear'
-
-if debug:
-    print(model_kernel_type, 'SVM model selected.')
+    if debug:
+        print('Invalid input! Program will run with', model_kernel_type, 'SVM model.')
 
 # check if the stated model type exists already
 # if it does, ask whether it should be rebuilt (default answer should be no)
