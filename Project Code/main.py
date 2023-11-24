@@ -208,13 +208,13 @@ if rebuild_model:
 
     # ROC Curve + AUC
     # predict probabilities for X_test using predict_proba
-    probabilities = svm.predict_proba(X_test)
+    probabilities = svm.predict_proba(X_val)
 
     # select the probabilities for label 1.0
     y_proba = probabilities[:, 1]
 
     # calculate false positive rate and true positive rate at different thresholds
-    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_proba, pos_label = 1)
+    false_positive_rate, true_positive_rate, thresholds = roc_curve(y_val, y_proba, pos_label = 1)
 
     # calculate AUC
     roc_auc = auc(false_positive_rate, true_positive_rate)
