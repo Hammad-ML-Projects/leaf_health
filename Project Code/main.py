@@ -28,7 +28,7 @@ from sklearn.decomposition import PCA
 from sklearn.svm import SVC
 from sklearn.metrics import roc_curve, auc
 
-# define input image size and number of images that will be imported for training
+# define constants
 IMG_SIZE = (256, 256)
 BATCH_SIZE = 32
 PROJECT_DIR = "/Users/hammadsheikh/Desktop/Documents/Studies/CSUF/2023/2023 Fall/CPSC 483 - Intro to Machine Learning/Project/leaf_health/Project Code/"
@@ -36,9 +36,7 @@ INPUT_DIR = PROJECT_DIR + 'Preprocessed Data/'
 # RESIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data_Resized/'
 # RESIZED_AND_CATEGORIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data - Resized and Categorized/Mango - Healthy'
 
-features_list = []
-target_array = []
-
+# categories dictionary
 CATEGORIES_DICTIONARY = {'0001': 'Mango - Healthy', '0002': 'Arjun - Healthy',
                          '0003': 'Alstonia Scholaris - Healthy', '0004': 'Guava - Healthy',
                          '0005': 'Jamun - Healthy', '0006': 'Jatropha - Healthy',
@@ -50,6 +48,21 @@ CATEGORIES_DICTIONARY = {'0001': 'Mango - Healthy', '0002': 'Arjun - Healthy',
                          '0017': 'Jamun - Diseased', '0018': 'Jatropha - Diseased',
                          '0019': 'Pongamia Pinnata - Diseased', '0020': 'Pomegranate - Diseased',
                          '0021': 'Lemon - Diseased', '0022': 'Chinar - Diseased'}
+
+# define global variables
+features_list = []
+target_array = []
+
+# define functions
+# function to create image features and flatten into a single row
+def create_features(image):
+    # flatten three channel color image
+    color_features = image.flatten()
+    # get HOG features from greyscale image
+    hog_features, hog_image = hog(image, visualize = True, block_norm = 'L2-Hys', pixels_per_cell = (16,16), channel_axis = -1)
+    # combine color and hog features into a single array
+    flat_features = np.hstack(color_features)
+    return flat_features
 
 # ask user for SVM model type
 # kernal types: linear kernel = 'linear', polynomial kernel = 'poly', radial basis kernel ('rbf'), sigmoid kernel ('sigmoid').
@@ -86,16 +99,6 @@ if !os.path.isfile(model_path) or rebuild_model:
         print('Debug mode is ON ...\n')
     else:
         print('Debug mode is OFF ...\n')
-
-    # function to create image features and flatten into a single row
-    def create_features(image):
-        # flatten three channel color image
-        color_features = image.flatten()
-        # get HOG features from greyscale image
-        hog_features, hog_image = hog(image, visualize = True, block_norm = 'L2-Hys', pixels_per_cell = (16,16), channel_axis = -1)
-        # combine color and hog features into a single array
-        flat_features = np.hstack(color_features)
-        return flat_features
 
     # pull in images, run HOG, create image features and flatten into a single row
     print('Starting image import and feature creation ...')
@@ -152,7 +155,7 @@ if !os.path.isfile(model_path) or rebuild_model:
     print('Starting data split ...')
     X = pd.DataFrame(leaf_pca) # dataframe
     y = pd.Series(np.array(target_array))
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .3, random_state = 1234123)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .3, random_state = 1234123) # original data split
 
     # below is for splitting data into train, validate, test
     # testing_ratio = 0.15
@@ -238,5 +241,24 @@ else:
     if debug:
         print('Pickle is loaded successfully!')
     filehandler.close()
+
+    # load image and run it through the model (this is for test - we would really use the data split here)
+    image_name = '0001_0019.JPG'
+    image_name_category = CATEGORIES_DICTIONARY.get(image_name[:4])
+    test_filename = PROJECT_DIR + image_name
+    image = cv2.imread(test_filename)
+
+    # display loaded image
+    plt.imshow(image)
+    plt.show()
+
+    # get image features
+    image_features = create_features(image)
+
+    # run model
+    probability = model.predict_proba(image_features)
+    for index, value in enumerate(CATEGORIES_DICTIONARY):
+        print(f'{value} = {probability[0][index]*100}%')
+    print('The predicted image is:', CATEGORIES_DICTIONARY[model.predict(image_features)[0]])
 
 # above uses SVM; https://rpubs.com/Sharon_1684/454441
