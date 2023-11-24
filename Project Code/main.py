@@ -33,8 +33,8 @@ IMG_SIZE = (256, 256)
 BATCH_SIZE = 32
 PROJECT_DIR = "/Users/hammadsheikh/Desktop/Documents/Studies/CSUF/2023/2023 Fall/CPSC 483 - Intro to Machine Learning/Project/leaf_health2/Project Code/"
 INPUT_DIR = PROJECT_DIR + 'Preprocessed Data/'
-# RESIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data_Resized/'
-# RESIZED_AND_CATEGORIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data - Resized and Categorized/Mango - Healthy'
+RESIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data_Resized/'
+RESIZED_AND_CATEGORIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data - Resized and Categorized/'
 
 # categories dictionary
 CATEGORIES_DICTIONARY = {'0001': 'Mango - Healthy', '0002': 'Arjun - Healthy',
@@ -127,7 +127,7 @@ if rebuild_model:
     start = timer()
 
     image_index = 0
-    for filename in glob.iglob(INPUT_DIR + '**/*.JPG', recursive = True):
+    for filename in glob.iglob(RESIZED_INPUT_DIR + '**/*.JPG', recursive = True):
         # read image
         image = cv2.imread(filename)
         image_index += 1
