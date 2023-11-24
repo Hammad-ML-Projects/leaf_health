@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{array}
+\newcolumntype{C}{>$c<$}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bigints}
+\usepackage{esvect}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\usepackage{textcomp}
+\RequirePackage{color,graphicx}
+\usepackage{graphicx}
+\usepackage[paper=letterpaper,margin=0.8in]{geometry}
+\newcommand\myeq{\stackrel{\mathclap{\normalfont\mbox{L'H}}}{=}}
+\definecolor{amaranth}{rgb}{0.9, 0.17, 0.31}
+
+\begin{document}
+
+%---------Put name and information on the top right-----------%
+\centering{\huge Project: Plant Leaf Health}\\~\\
+
+%\null\hfill\begin{tabular}[t]{l@{}}
+\textbf{Hammad Ahmed Sheikh}\\
+\textsc{hshammads@csu.fullerton.edu}\\
+\textsc{cpsc 483: introduction to machine learning}\\~\\
+
+\textsc{dr. rong jin}\\
+\textsc{california state university, fullerton (CSUF)}\\
+%\textsc{september 8, 2023}\\~\\~\\
+%\end{tabular}
+
+
+%---------body of the pitch-----------%
+\begin{enumerate}
+	\item \textbf{Group Members:} Self.\\~\\
+	
+  	\item \textbf{Objective:}\\~\\
+	
+	The objective of this project is to create a model and setup that is able to intake a plant's leaf image and categorize its species and health via comparison to publicly available dataset.\\
+	
+	\item \textbf{Rationale:}\\~\\
+	
+	This project is important to me because I really enjoy gardening. I actively maintain my garden, and I always have to be mindful of the health of my plants and provide continuous care to ensure they remain healthy. What I currently struggle with is the state of the plants’ health. That is, I am overly cautious which results in me over-providing for my plants, whether it be water, sun, shade, fertilizer, or pesticide or whatever else, and this is not good as the plants will become dependent upon my care and wither in my absence – yes, this does and can happen. I hope to build a program that I can actively use to gauge my plants' health and provide appropriate and better care to ensure my plants live a healthy long lasting life.\\
+	
+	\item \textbf{Approach:}\\~\\
+	
+	I plan to take a multi-step approach for my project. First step was to find an appropriate dataset that would have images of plants of some sort and include categorization of healthy vs unhealthy. This step is complete (See References). Second step is to read and review the citations of this data source to better understand the dataset and its usage. Third step is to create a setup that can access and read this dataset (images), preferably via Python. Fourth step is to build a sample model that is able to categorize the images - this will be done via a sample set of images separated from the training dataset. Fifth step is to optimize and improve the model. Lastly, sixth step is to implement and test the model on images taken from my garden.\\
+	
+	\item \textbf{Timeline:}\\~\\
+	
+	$\bullet$ 09/08/2023: Create a group\\
+	$\bullet$ 09/08/2023: Choose a topic and create a basic idea\\
+	$\bullet$ 09/20/2023: Create and submit Elevator Pitch\\
+	$\bullet$ 09/20/2023: Review dataset citations and articles\\
+	$\bullet$ 09/27/2023: Research and read articles similar to my objective\\
+	$\bullet$ 09/29/2023: Discuss approach and steps with professor\\
+	$\bullet$ 10/11/2023: Build a basic model on the dataset and start review of the model\\
+	$\bullet$ 10/13/2023: Review model and progress with professor\\
+	$\bullet$ 10/25/2023: Improve the model and continue development\\
+	$\bullet$ 10/27/2023: Review improved model with professor\\
+	$\bullet$ 11/15/2023: Implement and test model with images from my garden\\
+	$\bullet$ 12/06/2023: Finish up project and present to class\\
+	
+	\item \textbf{Possible Issues:}\\~\\
+	
+	Possible problems I foresee with this project is my lack of computer science and machine learning experience and knowledge. I may have hardware restrictions as well since I will be setting this up on my personal computer - I \textit{may} have to trim down the training model to cut down on processing timing.\\	
+		
+\end{enumerate}	
+	\newpage
+	
+\centering{\huge References}\\~\\
+\begin{flushleft}
+\begin{enumerate}
+	\item \url{https://www.tensorflow.org/datasets/catalog/plant_leaves}
+	\item Dataset: \url{https://data.mendeley.com/datasets/hb74ynkjcn/1}
+	\item Dataset Citations: \url{https://ieeexplore.ieee.org/document/9036158/citations#citations}
+	\item Professor Rong Jin (CSUF)
+\end{enumerate}
+\end{flushleft}
+\end{document}
