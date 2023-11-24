@@ -31,7 +31,7 @@ from sklearn.metrics import roc_curve, auc
 # define constants
 IMG_SIZE = (256, 256)
 BATCH_SIZE = 32
-PROJECT_DIR = "/Users/hammadsheikh/Desktop/Documents/Studies/CSUF/2023/2023 Fall/CPSC 483 - Intro to Machine Learning/Project/leaf_health/Project Code/"
+PROJECT_DIR = "/Users/hammadsheikh/Desktop/Documents/Studies/CSUF/2023/2023 Fall/CPSC 483 - Intro to Machine Learning/Project/leaf_health2/Project Code/"
 INPUT_DIR = PROJECT_DIR + 'Preprocessed Data/'
 # RESIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data_Resized/'
 # RESIZED_AND_CATEGORIZED_INPUT_DIR = PROJECT_DIR + 'Preprocessed Data - Resized and Categorized/Mango - Healthy'
@@ -64,6 +64,18 @@ def create_features(image):
     flat_features = np.hstack(color_features)
     return flat_features
 
+# ask user for debug mode
+debug = input('\nWould you like the debug mode on? (Y/N): ')
+if debug.upper() == 'Y' or debug.upper() == 'YES':
+    debug = True
+else:
+    debug = False
+
+if debug:
+    print('Debug mode is ON ...')
+else:
+    print('Debug mode is OFF ...')
+
 # ask user for SVM model type
 # kernal types: linear kernel = 'linear', polynomial kernel = 'poly', radial basis kernel ('rbf'), sigmoid kernel ('sigmoid').
 model_kernel_type = input('\nWhich SVM model type would you like to run? (linear/l, poly/p, rbf/r, sigmoid/s): ')
@@ -76,30 +88,30 @@ elif model_kernel_type.upper() == 'P' or model_kernel_type.upper() == 'POLY':
 else:
     model_kernel_type = 'linear'
 
+if debug:
+    print(model_kernel_type, 'SVM model selected.')
+
 # check if the stated model type exists already
 # if it does, ask whether it should be rebuilt (default answer should be no)
 model_name = 'img_hog_' + model_kernel_type + '_model.p'
 model_path = PROJECT_DIR + model_name
 
-rebuild_model = False
-if os.path.isfile(model_path):
-    rebuild_model = input('{} + {} = '.format(model_kernel_type, 'SVM model already exists!\nWould you like to rebuild the model (NOT RECOMMENDED)? (Y/N): '))
+rebuild_model = True
+model_exists = os.path.isfile(model_path)
+
+if model_exists:
+    rebuild_model = input('{} {}'.format(model_kernel_type, 'SVM model already exists!\nWould you like to rebuild the model (NOT RECOMMENDED)? (Y/N): '))
     if rebuild_model.upper() == 'Y' or rebuild_model.upper() == 'YES':
         rebuild_model = True
+        if debug:
+            print(model_kernel_type, 'SVM model will be rebuilt. This will take a while ...')
+    else:
+        rebuild_model = False
+        if debug:
+            print(model_kernel_type, 'SVM model will not be rebuilt!')
 
 # model will only be built if it doesn't already exist or the user wants it to be rebuilt
-if !os.path.isfile(model_path) or rebuild_model:
-    debug = input('\nWould you like the debug mode on? (Y/N): ')
-    if debug.upper() == 'Y' or debug.upper() == 'YES':
-        debug = True
-    else:
-        debug = False
-
-    if debug:
-        print('Debug mode is ON ...\n')
-    else:
-        print('Debug mode is OFF ...\n')
-
+if rebuild_model:
     # pull in images, run HOG, create image features and flatten into a single row
     print('Starting image import and feature creation ...')
     # set start timer
