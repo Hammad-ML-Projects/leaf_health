@@ -190,7 +190,7 @@ if rebuild_model:
         print('Categories distribution:',pd.Series(y_train).value_counts())
 
     # train model
-    print('Training model using' + model_kernel_type + 'SVM ...')
+    print('Training model using ' + model_kernel_type + ' SVM ...')
     # define support vector classifier
     svm = SVC(kernel = model_kernel_type, probability = True, random_state = 42)
 
@@ -204,7 +204,7 @@ if rebuild_model:
     y_pred = svm.predict(X_val)
     print('The predicted data is:', y_pred)
     print('The actual data is:', np.array(y_val))
-    print('The model (', kernel_type, 'SVM) is', str(round(accuracy_score(y_pred, y_val)*100, 2)), '% accurate')
+    print('The model (', model_kernel_type, 'SVM) is', str(round(accuracy_score(y_pred, y_val)*100, 2)), '% accurate')
 
     # ROC Curve + AUC
     # predict probabilities for X_test using predict_proba
