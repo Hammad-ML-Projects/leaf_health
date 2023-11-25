@@ -23,3 +23,14 @@ non-categories;
 categories;
 1. https://medium.com/analytics-vidhya/image-classification-using-machine-learning-support-vector-machine-svm-dc7a0ec92e01
 2. https://github.com/ShanmukhVegi/Image-Classification/blob/main/Shanmukh_Classification.ipynb
+
+main_cat.py follows the resource(s) stated under categories.
+main.py follows the resource(s) stated under non-categories.
+
+Though main_cat.py did not throw any errors, I was not able to complete compilation and model build on my PC.
+main.py did compile and complete. Hence, that's the one I have been using.
+
+Steps to recreate this project;
+1. Image acquisition
+2. Image pre-processing via img_preprocess.py
+3. Model build and test via main.py
