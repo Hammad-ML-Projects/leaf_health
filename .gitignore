@@ -20,5 +20,6 @@ Dataset/
 "Project Code"/"Preprocessed Data - Resized and Categorized"
 "Project Code"/"img_hog_linear_model_bkup_11242023.p"
 "Project Code"/"img_hog_linear_model.p"
+"Project Code"/"img_hog_poly_model.p"
 *.p
 *JPG
