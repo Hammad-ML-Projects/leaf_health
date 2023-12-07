@@ -58,7 +58,7 @@ target_array = []
 def create_features(image):
     # flatten three channel color image
     color_features = image.flatten()
-    # get HOG features from greyscale image
+    # get HOG features from image
     hog_features, hog_image = hog(image, visualize = True, block_norm = 'L2-Hys', pixels_per_cell = (16,16), channel_axis = -1)
     # combine color and hog features into a single array
     flat_features = np.hstack(color_features)
@@ -187,7 +187,7 @@ if rebuild_model:
 
     # look at the distrubution of categories in the train set
     if debug:
-        print('Categories distribution:',pd.Series(y_train).value_counts())
+        print('Categories distribution:\n',pd.Series(y_train).value_counts())
 
     # train model
     print('Training model using ' + model_kernel_type + ' SVM ...')
