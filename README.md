@@ -18,8 +18,10 @@ https://towardsdatascience.com/how-to-split-a-tensorflow-dataset-into-train-vali
 https://datascience.stackexchange.com/questions/15135/train-test-validation-set-splitting-in-sklearn
 
 Image Feature Extraction resources (and SVM model building);
+
 non-categories;
 1. https://rpubs.com/Sharon_1684/454441
+
 categories;
 1. https://medium.com/analytics-vidhya/image-classification-using-machine-learning-support-vector-machine-svm-dc7a0ec92e01
 2. https://github.com/ShanmukhVegi/Image-Classification/blob/main/Shanmukh_Classification.ipynb
